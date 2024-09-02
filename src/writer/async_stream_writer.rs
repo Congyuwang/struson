@@ -1,11 +1,6 @@
-#![allow(missing_docs)]
 //! Async streaming implementation of [`JsonWriter`]
-use crate::utf8;
-use std::{
-    io::{ErrorKind, Write},
-    pin::Pin,
-    str::Utf8Error,
-};
+#![allow(missing_docs)]
+use std::{io::Write, pin::Pin};
 use tokio::io::{AsyncWrite, AsyncWriteExt};
 
 use super::*;
@@ -66,6 +61,10 @@ impl<W: AsyncWrite + Unpin> AsyncJsonStreamWriter<W> {
     /// Unwrap the inner writer.
     pub fn into_inner(self) -> W {
         self.writer
+    }
+
+    pub fn expects_member_name(&self) -> bool {
+        self.expects_member_name
     }
 }
 
